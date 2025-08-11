@@ -1,0 +1,35 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>
+        {% block title %}
+            
+        {% endblock title %}
+        </title>
+        <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    </head>
+
+    <body>
+        
+<div class="b-example-divider"></div>
+
+<div class="container">
+  <footer class="py-3 my-4">
+    <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+      <li class="nav-item"><a href="#" class="nav-link px-2 ">Home</a></li>
+      <li class="nav-item"><a href="#" class="nav-link px-2">Features</a></li>
+      <li class="nav-item"><a href="#" class="nav-link px-2">Pricing</a></li>
+      <li class="nav-item"><a href="#" class="nav-link px-2">FAQs</a></li>
+      <li class="nav-item"><a href="#" class="nav-link px-2">About</a></li>
+    </ul>
+    <p class="text-center">&copy; 2022 Company, Inc</p>
+  </footer>
+</div>
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    </body>
+</html>
