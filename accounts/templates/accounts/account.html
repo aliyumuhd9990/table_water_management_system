@@ -8,36 +8,8 @@
     <meta content="Free HTML Templates" name="keywords" />
     <meta content="Free HTML Templates" name="description" />
 
-    <!-- Favicon -->
-    <link href="{% static 'img/favicon.ico' %}" rel="icon" />
-
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-
-    <!-- Font Awesome -->
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
-      rel="stylesheet"
-    />
-
-    <!-- Libraries Stylesheet -->
-    <link
-      href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
-      crossorigin="anonymous"
-    />
-
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
   </head>
   <body>
       <!-- Preloader -->
@@ -47,9 +19,9 @@
   </div>
 </div>
     <!-- Navigation-->
-    <nav class="bg-white shadow-sm fixed-top">
+    <nav class="bg-primary shadow fixed-top">
       <div class="container p-3">
-        <h1><span class="text-primary">My</span> Profile</h1>
+        <h1 class="text-white"><span class="text-secondary">My</span> Profile</h1>
       </div>
     </nav>
     <br><br><br>
@@ -81,7 +53,7 @@
         <li class="list-group-item"><b>Contact:</b> {{profile.contact}}</li>
         <br>
         <a
-        href="{% url 'edit-profile' %}"
+        href="{% url 'account:edit-profile' %}"
         class="btn btn-dark btn-block border-0 py-3"
         >
         Edit Profile
@@ -89,30 +61,30 @@
     </ul>
     <h6 class="text-dark my-3 fw-bolder">Settings</h6>
     <div class="d-grid gap-2">
-      <a href="{% url 'core:privacy' %}" class="btn btn-primary btn-block border-0 py-3 text-start border">
+      <a href="#" class="btn btn-primary btn-block border-0 py-3 text-start border">
           Privacy 
         </a>
-        <a href="{% url 'core:security' %}" class="btn btn-primary btn-block border-0 py-3 text-start border">
+        <a href="#" class="btn btn-primary btn-block border-0 py-3 text-start border">
           Security
         </a>
-        <a href="{% url 'core:about' %}" class="btn btn-primary btn-block border-0 py-3 text-start border">
+        <a href="#" class="btn btn-primary btn-block border-0 py-3 text-start border">
           About
         </a>
         
       </div>
       <h6 class="text-dark my-3 fw-bolder">Support</h6>
       <div class="d-grid gap-2">
-        <a href="{% url 'core:ask' %}" class="btn btn-primary btn-block border-0 py-3 text-start border my-custom-btn">
+        <a href="#" class="btn btn-primary btn-block border-0 py-3 text-start border my-custom-btn">
           Ask a Question
         </a>
-        <a href="{% url 'core:faq' %}" class="btn btn-primary btn-block border-0 py-3 text-start border my-custom-btn">
+        <a href="#" class="btn btn-primary btn-block border-0 py-3 text-start border my-custom-btn">
           FAQ
         </a>
         <a href="" class="btn btn-primary btn-block border-0 py-3 text-start border my-custom-btn">
           Privacy Policy
         </a>
         <a
-        href="{% url 'logout' %}"
+        href="{% url 'account:logout' %}"
           class="btn btn-dark btn-block border-0 py-3"
         >
           Logout
@@ -132,26 +104,9 @@
     }, 2000); // 2000 milliseconds = 2 seconds
   });
 </script>
-    
-    <!-- Bootstrap core JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Core theme JS-->
-    <script src="{% static 'js/scripts.js'%}"></script>
-    <script src="{% static 'js/bootstrap.min.js'%}"></script>
-    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-    <!-- * *                               SB Forms JS                               * *-->
-    <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
-    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-    <script
-    src="https://kit.fontawesome.com/e1ae1750b0.js"
-      crossorigin="anonymous"
-      ></script>
-      <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
-      <script>
-      if (window.history.replaceState) {
-        window.history.replaceState(null, null, window.location.href);
-      }
-      
-    </script>
+     <script src="{% static 'js/bootstrap.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
   </body>
 </html>

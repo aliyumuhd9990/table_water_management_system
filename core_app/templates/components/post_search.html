@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% load static %}
+  <head>
+    <meta charset="utf-8" />
+    <title>{% block title %}All-Posts {% endblock title %}</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="Free HTML Templates" name="keywords" />
+    <meta content="Free HTML Templates" name="description" />
+
+    <!-- Favicon -->
+    <link href="{% static 'img/favicon.ico' %}" rel="icon" />
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Libraries Stylesheet -->
+    <link
+      href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
+      crossorigin="anonymous"
+    />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+    <style>
+        .active {
+            color: #158cba;
+        }
+        .bg_active {
+            background-color: #158cba;
+            color: white;
+        }
+    </style>
+  </head>
+    <body>
+      <!-- Preloader -->
+<div id="preloader" class="position-fixed top-0 start-0 w-100 h-100 bg-white d-flex justify-content-center align-items-center" style="z-index: 1050;">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+    <!-- Header Start -->
+    <div class="container-fluid page-header" style="margin-bottom: 20px;">
+        <div class="container">
+            <div class="d-flex flex-column justify-content-center" style="min-height: 300px">
+                <h3 class="display-4 text-white text-uppercase">Blog</h3>
+                
+            </div>
+            {% include 'components/search.html' %}
+                    
+                </div>
+    </div>
+    <!-- Header End -->
+<h2>Search Results for "{{ query }}"</h2>
+<!-- Blog Start -->
+    <div class="container-fluid py-5">
+        <div class="container py-5">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row pb-3">
+{% if posts %}
+{% for post in posts %}
+<div class="col-lg-4 col-md-6 col-12 mb-4">
+                        <div class="blog-item position-relative overflow-hidden rounded mb-2">
+                            {% if post.cover_img %}
+                            <img class="img-fluid" src="{{ post.cover_img.url }}" style="height: 20em; width: 100%;" alt="">
+                            {% else %}
+                            <img class="img-fluid" src="{% static 'img/blog-1.jpg' %}" style="height: 20em; alt="">
+                            {% endif %}
+                            <a class="blog-overlay text-decoration-none" href="{{ post.get_absolute_url }}">
+                                <h5 class="text-white mb-3">{{post.title}}</h5>
+                                <p class="text-primary m-0">{{post.created}}</p>
+                            </a>
+                        </div>
+                    </div>
+                    {% endfor %}
+{% else %}
+  <p>No results found.</p>
+{% endif %}
+                    </div></div></div></div></div>
+ <!-- Footer Start -->
+    <div
+      class="container-fluid bg-dark text-white py-5 px-sm-3 px-lg-5"
+      style="margin-top: 90px"
+    >
+      <div class="row pt-5">
+        <div class="col-lg-7 col-md-12">
+          <div class="row">
+            <div class="col-md-6 mb-5">
+              <h5
+                class="text-primary text-uppercase mb-4"
+                style="letter-spacing: 5px"
+              >
+                Get In Touch
+              </h5>
+              <p>
+                <i class="fa fa-map-marker-alt mr-2"></i>Zoo Road, Kano State.
+                Nigeria
+              </p>
+              <p><i class="fa fa-phone-alt mr-2"></i>+234 802 676 1796</p>
+              <p><i class="fa fa-envelope mr-2"></i>randotech55@gmail.com</p>
+              <div class="d-flex justify-content-start mt-4">
+                <a class="btn btn-outline-light btn-square mr-2" href="https://x.com/home"
+                  ><i class="fab fa-twitter"></i
+                ></a>
+                <a class="btn btn-outline-light btn-square mr-2" href="https://web.facebook.com/?_rdc=1&_rdr#"
+                  ><i class="fab fa-facebook-f"></i
+                ></a>
+                <a class="btn btn-outline-light btn-square mr-2" href="https://www.linkedin.com/feed/"
+                  ><i class="fab fa-linkedin-in"></i
+                ></a>
+                <a class="btn btn-outline-light btn-square" href="https://www.instagram.com/aliyumuhd9990/"
+                  ><i class="fab fa-instagram"></i
+                ></a>
+              </div>
+            </div>
+            <div class="col-md-6 mb-5">
+              <h5
+                class="text-primary text-uppercase mb-4"
+                style="letter-spacing: 5px"
+              >
+                Our Services
+              </h5>
+              <div class="d-flex flex-column justify-content-start">
+                {% for s in services %}
+          <a href="{{ s.get_absolute_url }}" class="text-white mb-2"><i class="fa fa-angle-right mr-2"></i>{{s.name}}</a>
+            
+          {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-5 col-md-12 mb-5">
+          {% include 'components/message.html' %}
+          <h5
+            class="text-primary text-uppercase mb-4"
+            style="letter-spacing: 5px"
+          >
+            Newsletter
+          </h5>
+          <p>
+            Subscribe to our newsletter for update notification, insert your email below the field and click subscribe button. Doing this will give us the oppornity to send you an email when ever we update this app.
+          </p>
+          <div class="w-100">
+            <form action="" method="post">
+              {% csrf_token %}
+              <div class="input-group">
+                <input
+                type="text"
+                name="email"
+                class="form-control border-light"
+                style="padding: 30px"
+                placeholder="Your Email Address"
+                />
+                <div class="input-group-append">
+                  <button class="btn btn-primary px-4">Subscribe</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="container-fluid bg-dark text-white border-top py-4 px-sm-3 px-md-5"
+      style="border-color: rgba(256, 256, 256, 0.1) !important"
+    >
+      <div class="row">
+        <div class="col-lg-6 text-center text-md-left mb-3 mb-md-0">
+          <p class="m-0 text-white">
+            &copy; <a href="https://wa.me/2348026761796">RandoTech</a>. All Rights Reserved. Designed by
+            <a href="https://wa.me/2348026761796">Aliyu Muhammad Musa</a>
+          </p>
+        </div>
+        <div class="col-lg-6 text-center text-md-right">
+          <ul class="nav d-inline-flex">
+            <li class="nav-item">
+              <a class="nav-link text-white py-0" href="{% url 'core:privacy' %}">Privacy</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white py-0" onclick="alert('Section not Available!')" href="#">Terms</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white py-0" href="{% url 'core:faq' %}">FAQs</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white py-0" onclick="alert('Section not Available!')" href="#">Help</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    </div>
+    <!-- Footer End -->
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"
+      ><i class="fa fa-angle-double-up"></i
+    ></a>
+        
+    <!-- JavaScript: force preloader for 3 seconds -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    setTimeout(function () {
+      const preloader = document.getElementById("preloader");
+      if (preloader) {
+        preloader.remove(); // Removes the preloader after 3s
+      }
+    }, 2000); // 2000 milliseconds = 2 seconds
+  });
+</script>
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'lib/easing/easing.min.js' %}"></script>
+    <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Contact Javascript File -->
+    <script src="{% static 'mail/jqBootstrapValidation.min.js' %}"></script>
+    <script src="{% static 'mail/contact.js' %}"></script>
+
+    <!-- Template Javascript -->
+    <script src="{% static 'js/main.js' %}"></script>
+  </body>
+</html>
+
+    

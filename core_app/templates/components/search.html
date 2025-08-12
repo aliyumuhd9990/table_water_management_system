@@ -1,0 +1,11 @@
+                    <!-- Search Form -->
+                    <div class="mb-5 p-3 container">
+                        <form method="get" role="search" action="{% url 'blog:post_search' %}">
+                            <div class="input-group">
+                                <input type="search" name="q" class="form-control form-control-lg" placeholder="Search Post" value="{{ request.GET.q }}">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-primary" type="submit">Search</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>

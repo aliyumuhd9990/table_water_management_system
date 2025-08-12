@@ -7,7 +7,7 @@ from django.urls import reverse
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     full_name = models.CharField(max_length=30, blank=True)
     email = models.EmailField(unique=True)
-    is_active = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     objects = CustomUserManager()
 

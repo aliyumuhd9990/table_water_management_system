@@ -15,7 +15,7 @@ from django.core.mail import EmailMessage
 from django.conf import settings
 from .utils import *
 
-
+app_name='account'
 # from .authentications import authenticate
 # Create your views here.
 #pyhton manage.py migrate --run-syncdb
@@ -31,7 +31,7 @@ def SignupView(request):
             return redirect('signup')
         elif CustomUser.objects.filter(email=email).exists():
                 messages.error(request, 'Email Already Exist!!')
-                return redirect('signup')
+                return redirect(reverse('account:signup'))
         else:
                 user = CustomUser.objects.create_user(full_name=fname, email=email, password=password1)
                 user.save()
@@ -56,7 +56,7 @@ def SignupView(request):
                 
                 send_email.send()
                #  messages.success(request, 'Thank you for registaring with us, we have sent you an email verification to your email address!')
-                return redirect('/accounts/login/?command=verification&email='+email)
+                return redirect('/account/login/?command=verification&email='+email)
         
     return render(request, 'accounts/sign-up.html')
 
@@ -71,10 +71,10 @@ def ActivateEmailView(request, token, uidb64):
              user.is_active = True
              user.save()
              messages.success(request, 'Congratulations! Your account is activated!')
-             return redirect('login')
+             return redirect(reverse('account:login'))
         else:
              messages.error(request, 'Invalid Activation Link!')
-             return redirect('signup')
+             return redirect(reverse('account:signup'))
              
              
         # return HttpResponse("Account Activated!")
@@ -91,10 +91,10 @@ def LoginView(request):
         
         if user is not None:
           auth.login(request, user)
-          return redirect(reverse('core:index'))
+          return redirect(reverse('core_app:index'))
         else:
             messages.error(request, 'Invalid Credentials!!')
-            return redirect('login')
+            return redirect(reverse('account:login'))
     else:
         return render(request, 'accounts/sign-in.html')
 
@@ -145,7 +145,7 @@ def EditProfileView(request):
           profile.save()
           messages.success(request, 'Profile Updated!!')
         
-          return redirect('account')
+          return redirect(reverse('account:account'))
      return render(request, 'accounts/edit-profile.html', context)
 
 def VerifyView(request):
@@ -155,5 +155,5 @@ def VerifyView(request):
 @login_required
 def logoutView(request):
     auth.logout(request)
-    return redirect('login')
+    return redirect(reverse('account:login'))
 
