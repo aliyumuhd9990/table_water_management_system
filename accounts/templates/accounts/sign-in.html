@@ -29,7 +29,7 @@
                   <div class="container m-3 mx-auto alert alert-info text-center">
                       Thank you for registaring with us, we have sent you an email verification to your email address! <b>{{request.GET.email}}</b>
                       <br><br>
-                      Already Verified? <a href="{% url 'account:login' %}" class="text-primary">Login</a>
+                      Already Verified? <a href="{% url 'login' %}" class="text-primary">Login</a>
                     </div>
                     
                     {% else %}
@@ -54,10 +54,10 @@
                                 <div class="d-grid gap-2">
                                   <button class="btn btn-lg btn-dark" type="submit">Login</button>
                                 </div>
-                                <a class="text-white" href="{% url 'account:password_reset' %}">Reset password</a>
+                                <a class="text-white" href="{% url 'password_reset' %}">Reset password</a>
                               </form>
                               <br>
-                              <p class="text-center">Don’t have an account? <br><a class=" text-white" href="{% url 'account:signup' %}">Create One</a></p>
+                              <p class="text-center">Don’t have an account? <br><a class=" text-white" href="{% url 'signup' %}">Create One</a></p>
                               
                             </p>
                             

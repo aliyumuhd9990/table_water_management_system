@@ -56,16 +56,15 @@
   </div>
 {% else %}
 
-<div class="container mt-5 mb-5">
-  <h3 class="text-primary text-center">This is the Index Page</h3>
+<div class="container mt-5 mb-5 p-5" id="home">
    <div class="container my-5">
     <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg">
       <div class="col-lg-7 p-3 p-lg-5 pt-lg-3">
         <h1 class="display-4 fw-bold lh-1">Pure water</h1>
         <p class="lead">Quickly design and customize responsive mobile-first sites with Bootstrap, the world’s most popular front-end open source toolkit, featuring Sass variables and mixins, responsive grid system, extensive prebuilt components, and powerful JavaScript plugins.</p>
         <div class="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
-          <a href="{% url 'account:login' %}" type="button" class="btn btn-primary btn-lg px-4 me-md-2 fw-bold">Login</a>
-          <a href="{% url 'account:signup' %}" type="button" class="btn btn-outline-secondary btn-lg px-4">Sign Up</a>
+          <a href="{% url 'login' %}" type="button" class="btn btn-primary btn-lg px-4 me-md-2 fw-bold">Login</a>
+          <a href="{% url 'signup' %}" type="button" class="btn btn-outline-secondary btn-lg px-4">Sign Up</a>
         </div>
       </div>
       <div class="col-lg-4 offset-lg-1 p-0 overflow-hidden shadow-lg mx-auto mb-3">
@@ -73,8 +72,79 @@
       </div>
     </div>
   </div>
+</div>
+
+
+<div class="container-fluid bg-secondary  " id="about">>
+<div class="container my-5 p-5">
+  <div class="row align-items-center m-5">
+    <!-- Left Side Image -->
+    <div class="col-md-6">
+      <img src="{% static 'img/water.jpg' %}" 
+           class="img-fluid shadow-lg rounded" 
+           alt="About Us"
+           style="width: 30em;">
+    </div>
+
+    <!-- Right Side Text -->
+    <div class="col-md-6 " 
+      <h2 class="text-black">About Us</h2>
+      <p class="lead text-dark">
+        We are passionate about delivering top-notch services to our clients. 
+        With a strong commitment to excellence and innovation, our team 
+        continuously strives to provide the best solutions tailored to your needs.
+      </p>
+      <p class="text-dark">
+        Our mission is simple — to combine creativity, technology, and 
+        expertise to bring your vision to life. We believe in building 
+        lasting relationships and making a positive impact in every project we take on.
+      </p>
+    </div>
+  </div>
+</div>
 
 </div>
+
+<div class="container my-5" id="product">
+  <h2 class="mb-4">Our Products</h2>
+  <div class="row g-4">
+
+    <!-- Product 1 -->
+    <div class="col-md-4 col-sm-6">
+      <a href="#" class="card h-100 shadow-sm">
+        <img src="{% static 'img/water.jpg' %}" class="card-img-top" alt="Product 1">
+        <div class="card-body">
+          <h5 class="card-title">Product Name 1</h5>
+          <p class="card-text text-success fw-bold">$25.00</p>
+        </div>
+      </a>
+    </div>
+
+    <!-- Product 2 -->
+    <div class="col-md-4 col-sm-6">
+      <a href="#" class="card h-100 shadow-sm">
+        <img src="{% static 'img/water.jpg' %}" class="card-img-top" alt="Product 2">
+        <div class="card-body">
+          <h5 class="card-title">Product Name 2</h5>
+          <p class="card-text text-success fw-bold">$30.00</p>
+        </div>
+      </a>
+    </div>
+
+    <!-- Product 3 -->
+    <div class="col-md-4 col-sm-6">
+      <a href="#" class="card h-100 shadow-sm">
+        <img src="{% static 'img/water.jpg' %}" class="card-img-top" alt="Product 3">
+        <div class="card-body">
+          <h5 class="card-title">Product Name 3</h5>
+          <p class="card-text text-success fw-bold">$40.00</p>
+        </div>
+      </a>
+    </div>
+
+  </div>
+</div>
+
 {% endif %}
 {% endblock body %}
   
