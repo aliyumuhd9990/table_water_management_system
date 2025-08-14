@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     #my apps
     'core_app.apps.CoreAppConfig',
     'accounts.apps.AccountsConfig',
+    'product.apps.ProductConfig',
     
     #third party apps
     'widget_tweaks',

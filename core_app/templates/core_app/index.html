@@ -56,7 +56,7 @@
   </div>
 {% else %}
 
-<div class="container mt-5 mb-5 p-5" id="home">
+<div class="container mt-5 mb-5 p-3" id="home">
    <div class="container my-5">
     <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg">
       <div class="col-lg-7 p-3 p-lg-5 pt-lg-3">
@@ -75,9 +75,9 @@
 </div>
 
 
-<div class="container-fluid bg-secondary  " id="about">>
-<div class="container my-5 p-5">
-  <div class="row align-items-center m-5">
+<div class="container-fluid bg-secondary  pt-5 pb-5" id="about">>
+<div class="container my-5 ">
+  <div class="row align-items-center mt-5 mb-5">
     <!-- Left Side Image -->
     <div class="col-md-6">
       <img src="{% static 'img/water.jpg' %}" 
@@ -87,8 +87,8 @@
     </div>
 
     <!-- Right Side Text -->
-    <div class="col-md-6 " 
-      <h2 class="text-black">About Us</h2>
+    <div class="col-md-6 "> 
+      <h2 class="text-black mt-3">About Us</h2>
       <p class="lead text-dark">
         We are passionate about delivering top-notch services to our clients. 
         With a strong commitment to excellence and innovation, our team 
@@ -110,37 +110,24 @@
   <div class="row g-4">
 
     <!-- Product 1 -->
+    
+    {% for p in product %}
     <div class="col-md-4 col-sm-6">
-      <a href="#" class="card h-100 shadow-sm">
-        <img src="{% static 'img/water.jpg' %}" class="card-img-top" alt="Product 1">
+      <div class="card h-100 shadow-sm text-decoration-none">
+        <img src="{{ p.pimg.url }}" style="width: 100%; height: 15em;" class="card-img-top" alt="Product 1">
         <div class="card-body">
-          <h5 class="card-title">Product Name 1</h5>
-          <p class="card-text text-success fw-bold">$25.00</p>
+          <h5 class="card-title">{{p.pname}}</h5>
+          <p class="card-text text-dark">{{p.pdesc}}</p>
+          <div class="d-flex">
+            <p class="card-text text-success fw-bold col-6">{{p.price}}</p>
+            <a href="{{ p.get_absolute_url }}" type="button" class="btn btn-primary col-6">View</a>
+          </div>
         </div>
-      </a>
+      </div>
     </div>
+    {% endfor %}
 
-    <!-- Product 2 -->
-    <div class="col-md-4 col-sm-6">
-      <a href="#" class="card h-100 shadow-sm">
-        <img src="{% static 'img/water.jpg' %}" class="card-img-top" alt="Product 2">
-        <div class="card-body">
-          <h5 class="card-title">Product Name 2</h5>
-          <p class="card-text text-success fw-bold">$30.00</p>
-        </div>
-      </a>
-    </div>
-
-    <!-- Product 3 -->
-    <div class="col-md-4 col-sm-6">
-      <a href="#" class="card h-100 shadow-sm">
-        <img src="{% static 'img/water.jpg' %}" class="card-img-top" alt="Product 3">
-        <div class="card-body">
-          <h5 class="card-title">Product Name 3</h5>
-          <p class="card-text text-success fw-bold">$40.00</p>
-        </div>
-      </a>
-    </div>
+   
 
   </div>
 </div>
