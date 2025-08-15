@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'core_app.apps.CoreAppConfig',
     'accounts.apps.AccountsConfig',
     'product.apps.ProductConfig',
+    'cart.apps.CartConfig',
     
     #third party apps
     'widget_tweaks',

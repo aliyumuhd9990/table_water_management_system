@@ -11,5 +11,5 @@ class Product(models.Model):
     pimg = models.ImageField(upload_to='img/', height_field=None, width_field=None, max_length=100, default='img/water.jpg')
     
     def get_absolute_url(self):
-        return reverse('product:product_detail', kwargs={'id': self.id})
+        return reverse("product:product_detail", kwargs={"id": self.id})
     

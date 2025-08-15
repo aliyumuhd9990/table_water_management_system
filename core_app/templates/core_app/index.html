@@ -105,12 +105,10 @@
 
 </div>
 
-<div class="container my-5" id="product">
-  <h2 class="mb-4">Our Products</h2>
+<div class="container my-5 mt-5">
+  <h2 class="mb-4" id="product">Our Products</h2>
   <div class="row g-4">
-
-    <!-- Product 1 -->
-    
+    <!-- Product 1 -->  
     {% for p in product %}
     <div class="col-md-4 col-sm-6">
       <div class="card h-100 shadow-sm text-decoration-none">
@@ -119,8 +117,8 @@
           <h5 class="card-title">{{p.pname}}</h5>
           <p class="card-text text-dark">{{p.pdesc}}</p>
           <div class="d-flex">
-            <p class="card-text text-success fw-bold col-6">{{p.price}}</p>
-            <a href="{{ p.get_absolute_url }}" type="button" class="btn btn-primary col-6">View</a>
+            <p class="card-text text-success fw-bold col-6">&#8358;{{p.price}}</p>
+            <a href="{{ p.get_absolute_url }}" class="btn btn-primary col-6">View</a>
           </div>
         </div>
       </div>

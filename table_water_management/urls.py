@@ -5,9 +5,10 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('core_app.urls', namespace='core_app')),
-    path('product/', include('core_app.urls', namespace='product')),
     path('account/', include('accounts.urls')),
+    path('', include('core_app.urls', namespace='core_app')),
+    path('product/', include('product.urls', namespace='product')),
+    path('cart/', include('cart.urls', namespace='cart')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,

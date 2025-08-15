@@ -1,0 +1,94 @@
+
+{% load static %}
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>
+        {% block title %}
+            cart_page
+        {% endblock title %}
+        </title>
+        <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    </head>
+
+    <body>
+          <!-- Preloader -->
+<div id="preloader" class="position-fixed top-0 start-0 w-100 h-100 bg-white d-flex justify-content-center align-items-center" style="z-index: 1050;">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+{% include 'header.html' %}
+<div class="container py-5">
+  
+  {% for x in cart_item %}
+    
+  
+  <div class="card shadow-sm p-3 mb-3">
+    <div class="row align-items-center">
+      <!-- Product Image -->
+      <div class="col-md-2 text-center">
+        <img src="{{x.product.pimg.url}}" style="width: 100%; height: 5em;" alt="Product" class="img-fluid rounded">
+      </div>
+      
+      <!-- Product Details -->
+      <div class="col-md-4 mt-2">
+        <h5 class="mb-1 text-primary">{{x.product.pname}}</h5>
+        <p class="text-muted mb-0">{{x.product.pdesc}}</p>
+      </div>
+      
+      <!-- Price -->
+      <div class="col-md-2">
+        <span class="fw-bolder fs-5 text-primary">&#8358;{{x.product.price}}</span>
+      </div>
+
+      <!-- Quantity Selector -->
+      <div class="col-md-2 mt-3">
+        <div class="input-group">
+          <button class="btn btn-outline-primary" type="button" id="btn-minus">-</button>
+          <input type="number" class="form-control text-center" id="quantity" value="1" min="1">
+          <button class="btn btn-outline-primary" type="button" id="btn-plus">+</button>
+        </div>
+      </div>
+
+      <!-- Remove Button -->
+      <div class="col-md-2 text-end d-grid gap-2 mt-3">
+        <button class="btn btn-danger btn-sm">Remove</button>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  
+  <script>
+    const qtyInput = document.getElementById('quantity');
+    document.getElementById('btn-minus').addEventListener('click', () => {
+      let current = parseInt(qtyInput.value) || 1;
+      if (current > 1) qtyInput.value = current - 1;
+    });
+    document.getElementById('btn-plus').addEventListener('click', () => {
+      let current = parseInt(qtyInput.value) || 1;
+      qtyInput.value = current + 1;
+    });
+</script>
+
+
+{% include 'footer.html' %}
+</div>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    setTimeout(function () {
+      const preloader = document.getElementById("preloader");
+      if (preloader) {
+        preloader.remove(); // Removes the preloader after 3s
+      }
+    }, 2000); // 2000 milliseconds = 2 seconds
+  });
+</script>
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    </body>
+</html>
+   
