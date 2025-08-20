@@ -89,30 +89,33 @@ def LoginView(request):
     if request.method == "POST":
         email = request.POST['email']
         password = request.POST['password']
+        role = request.POST['role']   # selected role from form
 
-        user = authenticate(email=email, password=password)
-        
+        user = authenticate(request, email=email, password=password)
+
         if user is not None:
-             try:
-                  cart = Cart.objects.get(cart_id=_CartId(request))
-                  is_cart_item = CartItem.objects.filter(cart=cart).exists()
-                  
-                  if is_cart_item:
-                       cart_item = CartItem.objects.filter(cart=cart)
-                       
-                       for item in cart_item:
-                            item.user = user
-                            item.save()
-             except:
-                  pass
-             auth.login(request, user)
-             return redirect(reverse('core_app:index'))
+            # 🔹 Check role condition
+            if user.role != role:
+                messages.error(request, "You are not allowed to log in as this role.")
+                return redirect('login')
+
+            # 🔹 Merge cart items with logged in user
+            try:
+                cart = Cart.objects.get(cart_id=_CartId(request))
+                if CartItem.objects.filter(cart=cart).exists():
+                    for item in CartItem.objects.filter(cart=cart):
+                        item.user = user
+                        item.save()
+            except:
+                pass
+
+            auth.login(request, user)
+            return redirect(reverse('core_app:index'))
         else:
             messages.error(request, 'Invalid Credentials!!')
-            return redirect(reverse('login'))
+            return redirect('login')
     else:
         return render(request, 'accounts/sign-in.html')
-
 
 @login_required
 def AccountView(request):

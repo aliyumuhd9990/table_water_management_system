@@ -5,7 +5,7 @@
 {% endblock title %}
 
 {% block body %}
-{% if request.user.is_authenticated %}
+{% if request.user.role == 'customer' %}
 <br>
 <br>
 <div class="container py-5 pt-5">
@@ -57,6 +57,122 @@
       </li>
     </ul>
   </div>
+{% elif request.user.role == 'staff' %}
+<br>
+<br>
+<br>
+<div class="container-fluid">
+  <div class="row">
+    <!-- Main content -->
+    <main class="col-md-10 p-4">
+      <h2 class="mb-4">Staff Dashboard</h2>
+
+      <!-- Overview Cards -->
+      <div class="row g-3">
+        <div class="col-md-3">
+          <div class="card shadow-sm text-center p-3">
+            <h5>Total Deliveries</h5>
+            <h2>120</h2>
+            <small class="text-muted">This month</small>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card shadow-sm text-center p-3">
+            <h5>Pending Orders</h5>
+            <h2>34</h2>
+            <small class="text-muted">Awaiting delivery</small>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card shadow-sm text-center p-3">
+            <h5>Completed Orders</h5>
+            <h2>86</h2>
+            <small class="text-muted">Delivered successfully</small>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card shadow-sm text-center p-3">
+            <h5>Stock</h5>
+            <h2>450</h2>
+            <small class="text-muted">Bottles in warehouse</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reports & Delivery Table -->
+      <div class="row mt-4">
+        <div class="col-md-6">
+          <div class="card shadow-sm p-3">
+            <h5 class="mb-3">Reports</h5>
+            <ul class="list-group">
+              <li class="list-group-item d-flex justify-content-between">
+                Daily Sales <span class="badge bg-success">₦50,000</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between">
+                Weekly Sales <span class="badge bg-primary">₦350,000</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between">
+                Monthly Sales <span class="badge bg-warning">₦1,400,000</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="card shadow-sm p-3">
+            <h5 class="mb-3">Delivery Status</h5>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Order ID</th>
+                  <th>Customer</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>#1001</td>
+                  <td>John Doe</td>
+                  <td><span class="badge bg-warning">Pending</span></td>
+                </tr>
+                <tr>
+                  <td>#1002</td>
+                  <td>Jane Smith</td>
+                  <td><span class="badge bg-info">In Transit</span></td>
+                </tr>
+                <tr>
+                  <td>#1003</td>
+                  <td>Mike Adams</td>
+                  <td><span class="badge bg-success">Completed</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tasks Section -->
+      <div class="row mt-4">
+        <div class="col-md-12">
+          <div class="card shadow-sm p-3">
+            <h5 class="mb-3">Staff Tasks</h5>
+            <ul class="list-group">
+              <li class="list-group-item">
+                Check warehouse stock levels <span class="badge bg-secondary">Pending</span>
+              </li>
+              <li class="list-group-item">
+                Deliver to Kumbotso LGA <span class="badge bg-success">Completed</span>
+              </li>
+              <li class="list-group-item">
+                Update customer payment status <span class="badge bg-warning">In Progress</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
 {% else %}
 
 <div class="container mt-5 mb-5 p-3" id="home">

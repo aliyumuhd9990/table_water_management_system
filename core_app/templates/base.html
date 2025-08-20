@@ -24,8 +24,8 @@
         
         <nav class="navbar navbar-expand-lg bg-primary fixed-top" data-bs-theme="dark">
   <div class="container-fluid m-3">
-    <a class="navbar-brand me-5" href="#">Table-Water</a>
-    {% if request.user.is_authenticated %}
+    <a class="navbar-brand me-5" href="#"><span class="text-secondary">S.</span>Confirm TWC</a>
+    {% if request.user.role == 'customer' %}
       <div class="dropdown ms-auto">
       <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown">
         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
@@ -38,6 +38,31 @@
         <li><a class="dropdown-item text-white position-relative" href="#">Notifications<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
     0
     <span class="visually-hidden">unread messages</span></a></li>
+        <div class="dropdown-divider"></div>
+        <li><a class="dropdown-item text-white" href="{% url 'logout' %}">Logout</a></li>
+      </ul>
+    </div>
+    {% elif request.user.role == 'staff'%}
+    <br><br>
+    <div class="dropdown ms-auto">
+      <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown">
+        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+</svg>
+      </a>
+      <ul class="dropdown-menu dropdown-menu-end bg-dark">
+        <li><a class="dropdown-item text-white" href="{% url 'account' %}">Profile</a></li>
+    <li class="dropdown-item text-white"><a href="#" class="nav-link">Reports</a></li>
+        <li class="dropdown-item text-white"><a href="#" class="nav-link">Deliveries</a></li>
+        <li class="dropdown-item text-white"><a href="#" class="nav-link position-relative">Orders<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+    0
+    <span class="visually-hidden">unread messages</span></a></li>
+        <li class="dropdown-item text-white"><a href="#" class="nav-link">Inventory</a></li>
+        <li class="dropdown-item text-white"><a href="#" class="nav-link position-relative">Tasks<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+    0
+    <span class="visually-hidden">unread messages</span></a></li>
+        <li class="dropdown-item text-white"><a href="#" class="nav-link">Settings</a></li>
         <div class="dropdown-divider"></div>
         <li><a class="dropdown-item text-white" href="{% url 'logout' %}">Logout</a></li>
       </ul>
