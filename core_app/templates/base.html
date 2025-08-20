@@ -35,7 +35,9 @@
       </a>
       <ul class="dropdown-menu dropdown-menu-end bg-dark">
         <li><a class="dropdown-item text-white" href="{% url 'account' %}">Profile</a></li>
-        <li><a class="dropdown-item text-white" href="#">Settings</a></li>
+        <li><a class="dropdown-item text-white position-relative" href="#">Notifications<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+    0
+    <span class="visually-hidden">unread messages</span></a></li>
         <div class="dropdown-divider"></div>
         <li><a class="dropdown-item text-white" href="{% url 'logout' %}">Logout</a></li>
       </ul>
@@ -60,7 +62,10 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Order</a>
             <div class="dropdown-menu">
-              <a class="dropdown-item" href="#">Cart</a>
+              <a class="dropdown-item position-relative" href="{% url 'cart' %}">Cart<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+    {{ cart_count }}
+    <span class="visually-hidden">unread messages</span>
+</a>
               <a class="dropdown-item" href="#">Order List</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#">Track Order</a>

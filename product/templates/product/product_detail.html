@@ -44,7 +44,17 @@
         &#8358;{{product.price}}
       </p>
               <div class="d-grid gap-2">
-          <a href="{% url 'cart:add_cart' product.id %}" type="button" class="btn btn-primary btn-lg px-4 me-md-2 fw-bold mt-5">Add To Cart</a>
+                
+                {% if in_cart %}
+                <div class="d-flex justify-content-between">
+            <a href="" class="btn btn-primary py-2 px-4 mx-auto col-5 btn-sm disabled">Added To Cart</a>
+            
+            <a href="{% url 'cart' %}" class="btn btn-outline-primary cpy-2 px-4 mx-auto col-5 btn-sm">View Cart</a>
+          
+          </div>
+                {% else %}
+                <a href="{% url 'add_cart' product.id %}" type="button" class="btn btn-primary btn-lg px-4 me-md-2 fw-bold mt-5">Add To Cart</a>
+                  {% endif %}
         </div>
     </div>
   </div>

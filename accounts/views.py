@@ -5,6 +5,8 @@ from django.contrib import messages, auth
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.contrib.auth import views as auth_views
+from cart.models import *
+from cart.views import _CartId
 
 # from allauth.account.views import 
 #activation
@@ -91,8 +93,20 @@ def LoginView(request):
         user = authenticate(email=email, password=password)
         
         if user is not None:
-          auth.login(request, user)
-          return redirect(reverse('core_app:index'))
+             try:
+                  cart = Cart.objects.get(cart_id=_CartId(request))
+                  is_cart_item = CartItem.objects.filter(cart=cart).exists()
+                  
+                  if is_cart_item:
+                       cart_item = CartItem.objects.filter(cart=cart)
+                       
+                       for item in cart_item:
+                            item.user = user
+                            item.save()
+             except:
+                  pass
+             auth.login(request, user)
+             return redirect(reverse('core_app:index'))
         else:
             messages.error(request, 'Invalid Credentials!!')
             return redirect(reverse('login'))

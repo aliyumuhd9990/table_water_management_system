@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from product.models import *
 
 
+
 app_name = 'core_app'
 # Create your views here.
 def IndexView(request):

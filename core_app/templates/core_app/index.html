@@ -13,7 +13,10 @@
 
     <div class="row g-3 mb-4">
       <div class="col-md-3 col-6">
-        <a href="#" class="btn btn-primary w-100 p-3">Cart</a>
+        <a href="{% url 'cart' %}" class="btn btn-primary w-100 p-3 position-relative">Cart<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+    {{ cart_count }}
+    <span class="visually-hidden">unread messages</span>
+</a>
       </div>
       <div class="col-md-3 col-6">
         <a href="#" class="btn btn-primary w-100 p-3">Order History</a>
@@ -105,20 +108,21 @@
 
 </div>
 
-<div class="container my-5 mt-5">
+<div class="container my-3 mt-5">
   <h2 class="mb-4" id="product">Our Products</h2>
   <div class="row g-4">
     <!-- Product 1 -->  
     {% for p in product %}
     <div class="col-md-4 col-sm-6">
-      <div class="card h-100 shadow-sm text-decoration-none">
-        <img src="{{ p.pimg.url }}" style="width: 100%; height: 15em;" class="card-img-top" alt="Product 1">
+      <div  class="card h-100 shadow-sm text-decoration-none">
+        <img src="{{ p.pimg.url }}" style="width: 100%; height: 10em;" class="card-img-top" alt="Product 1">
         <div class="card-body">
           <h5 class="card-title">{{p.pname}}</h5>
-          <p class="card-text text-dark">{{p.pdesc}}</p>
-          <div class="d-flex">
-            <p class="card-text text-success fw-bold col-6">&#8358;{{p.price}}</p>
-            <a href="{{ p.get_absolute_url }}" class="btn btn-primary col-6">View</a>
+          <p class="card-text text-dark">{{p.pdesc|truncatechars:50}}</p>
+          <p class="card-text text-success fw-bold col-6">&#8358;{{p.price}}</p>
+          <div class="d-flex justify-content-between">
+            <a href="{% url 'product:product_detail' p.id %}" class="btn btn-primary py-2 px-4 mx-auto col-5 btn-sm">View Detail</a>
+            <a href="{% url 'add_cart' p.id %}" class="btn btn-primary cpy-2 px-4 mx-auto col-5 btn-sm">Add To Cart</a>
           </div>
         </div>
       </div>

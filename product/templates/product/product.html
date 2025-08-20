@@ -1,0 +1,70 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>
+        {% block title %}
+            product_lists
+        {% endblock title %}
+        </title>
+        <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    </head>
+
+    <body>
+<!-- Preloader -->
+<div id="preloader" class="position-fixed top-0 start-0 w-100 h-100 bg-white d-flex justify-content-center align-items-center" style="z-index: 1050;">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+
+{% include 'header.html' %}
+  
+<div class="container my-5 mt-5">
+  <h2 class="mb-4" id="product">Our Products</h2>
+  <div class="row g-4">
+    <!-- Product 1 -->  
+    {% for p in product %}
+    <div class="col-md-4 col-sm-6">
+      <div  class="card h-100 shadow-sm text-decoration-none">
+        <img src="{{ p.pimg.url }}" style="width: 100%; height: 10em;" class="card-img-top" alt="Product 1">
+        <div class="card-body">
+          <h5 class="card-title">{{p.pname}}</h5>
+          <p class="card-text text-dark">{{p.pdesc|truncatechars:50}}</p>
+          <p class="card-text text-success fw-bold col-6">&#8358;{{p.price}}</p>
+          <div class="d-flex justify-content-between">
+            <a href="{% url 'product:product_detail' p.id %}" class="btn btn-primary py-2 px-4 mx-auto col-5 btn-sm">View Detail</a>
+            
+            <a href="{% url 'add_cart' p.id %}" class="btn btn-primary cpy-2 px-4 mx-auto col-5 btn-sm">Add To Cart</a>
+          
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+
+   
+
+  </div>
+</div>
+
+{% include 'footer.html' %}
+</div>
+    <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    setTimeout(function () {
+      const preloader = document.getElementById("preloader");
+      if (preloader) {
+        preloader.remove(); // Removes the preloader after 3s
+      }
+    }, 2000); // 2000 milliseconds = 2 seconds
+  });
+</script>
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    </body>
+</html>
+   
