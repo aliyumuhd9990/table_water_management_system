@@ -22,16 +22,29 @@
 </div>
 {% include 'header.html' %}
 <div class="container mt-4">
+  {% if notifications %}
+    <a href="{% url 'notifications:clear_all' %}" 
+       class="btn btn-danger btn-sm mb-3"
+       onclick="return confirm('Are you sure you want to clear all notifications?')">
+       Clear All
+    </a>
+  {% endif %}
+
   <ul class="list-group">
     {% for notif in notifications %}
-      <li class="list-group-item d-flex justify-content-between align-items-center
+      <li class="list-group-item d-flex mb-3 justify-content-between align-items-center
                  {% if not notif.is_read %}list-group-item-warning{% endif %}">
         <span>{{ notif.message }}</span>
         <small class="text-muted">{{ notif.created_at|date:"M d, Y H:i" }}</small>
-        {% if not notif.is_read %}
-          <a href="{% url 'notifications:mark_as_read' notif.id %}" 
-             class="btn btn-sm btn-primary ms-2">Mark as Read</a>
-        {% endif %}
+        <div>
+          {% if not notif.is_read %}
+            <a href="{% url 'notifications:mark_as_read' notif.id %}" 
+               class="btn btn-sm btn-primary">Mark as Read</a>
+          {% endif %}
+          <a href="{% url 'notifications:delete' notif.id %}" 
+             class="btn btn-sm btn-danger"
+             onclick="return confirm('Delete this notification?')">Delete</a>
+        </div>
       </li>
     {% empty %}
       <li class="list-group-item">No notifications yet.</li>

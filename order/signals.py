@@ -10,19 +10,19 @@ def order_status_notification(sender, instance, created, **kwargs):
         if instance.paid and instance.status == "processing":
             Notification.objects.create(
                 user=instance.user,
-                message=f"Your order #{instance.id} has been paid successfully and is now processing."
+                message=f"Your order #01{instance.id}92 has been paid successfully and is now processing."
             )
 
         # Delivered notification
         if instance.status == "delivered":
             Notification.objects.create(
                 user=instance.user,
-                message=f"Your order #{instance.id} has been delivered. ✅"
+                message=f"Your order #01{instance.id}92 has been delivered. ✅"
             )
 
         # Cancelled notification
         if instance.status == "cancelled":
             Notification.objects.create(
                 user=instance.user,
-                message=f"Your order #{instance.id} was cancelled. ❌"
+                message=f"Your order #01{instance.id}92 was cancelled. ❌"
             )

@@ -55,12 +55,16 @@
 {% else %}
 <a href="{% url 'payment:initialize_payment' order.id %}" class="btn btn-primary btn-sm">Pay Now</a>
 {% endif %}
-            </tr>
-            {% empty %}
-            <tr><td colspan="4" class="text-center">No pending orders.</td></tr>
-            {% endfor %}
-        </tbody>
-    </table>
+</tr>
+{% empty %}
+<tr><td colspan="4" class="text-center">No pending orders.</td></tr>
+{% endfor %}
+</tbody>
+</table>
+<div class="text-center">
+
+  <a href="{% url 'core_app:index' %}" class="btn btn-primary btn-sm">Back to Dashboard</a>
+</div>
 </div>
 </div>
 {% include 'footer.html' %}
