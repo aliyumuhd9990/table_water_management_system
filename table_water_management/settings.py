@@ -45,6 +45,9 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'product.apps.ProductConfig',
     'cart.apps.CartConfig',
+    'order.apps.OrderConfig',
+    'payment.apps.PaymentConfig',
+    'notifications.apps.NotificationsConfig',
     
     #third party apps
     'widget_tweaks',
@@ -77,6 +80,12 @@ TEMPLATES = [
                 
                 # custom cart processor
                 "cart.context_processors.cart_counter",
+                # custom order processor
+                'order.context_processors.pending_orders_count',
+                
+                #custom notification processor
+                'notifications.context_processors.notification_count',
+
             ],
         },
     },
@@ -166,3 +175,7 @@ DEFAULT_FROM_EMAIL = 'RandoTech <randotech55@gmail.com>'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#payment method
+PAYSTACK_PUBLIC_KEY = 'pk_test_cda4709f39ba3850d8e4384a2c6f7c6875b2a1d2'
+PAYSTACK_SECRET_KEY = 'sk_test_f9a27757b6df7b558e57f4fe2cae83219dd0a070'

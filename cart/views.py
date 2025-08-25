@@ -105,22 +105,3 @@ def CartView(request, total=0, quantity=0, cart_item=None):
     }
     return render(request, 'cart/cart.html', context)
 
-#checkout views
-@login_required(login_url='login')
-def CheckoutView(request):
-    cart_items = CartItem.objects.filter(user=request.user, is_active=True)  # all items for this user
-    
-    total = 0
-    quantity = 0
-
-    for item in cart_items:
-        total += (item.product.price * item.quantity)
-        quantity += item.quantity 
-
-    context = {
-        'header_name': 'Checkout Page',
-        'cart_items': cart_items,
-        'total': total,
-        'quantity': quantity,
-    }
-    return render(request, 'cart/checkout.html', context)

@@ -19,43 +19,76 @@
 </a>
       </div>
       <div class="col-md-3 col-6">
-        <a href="#" class="btn btn-primary w-100 p-3">Order History</a>
+        <a href="{% url 'order_list' %}" class="btn btn-primary w-100 p-3">Order History</a>
       </div>
       <div class="col-md-3 col-6">
-        <a href="#" class="btn btn-primary w-100 p-3">Track Orders</a>
+        <a href="{% url 'pending_orders' %}" class="btn btn-primary w-100 p-3 position-relative">Pending Orders<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+    {{ pending_orders_count }}
+    <span class="visually-hidden">unread messages</span></a>
       </div>
       <div class="col-md-3 col-6">
-        <a href="#" class="btn btn-primary w-100 p-3">Buy Water</a>
+        <a href="{% url 'product:product_list' %}" class="btn btn-primary w-100 p-3">Buy Water</a>
       </div>
     </div>
 
-    <h4 class="mb-3">New Orders</h4>
-    <ul class="list-group">
-      <li class="list-group-item">
-        <strong>Tech Trends 2025</strong><br>
-        <small>by Mary - An overview of emerging technology trends</small>
-        <a href="#" class="float-end text-decoration-none">Read More</a>
-      </li>
-      <li class="list-group-item">
-        <strong>How to Code in Python</strong><br>
-        <small>by Ali - A beginner’s guide to programming with Python</small>
-        <a href="#" class="float-end text-decoration-none">Read More</a>
-      </li>
-    </ul>
-
+     <!-- Order History Section -->
     <h4 class="mb-3">Order History</h4>
-    <ul class="list-group">
-      <li class="list-group-item">
-        <strong>Tech Trends 2025</strong><br>
-        <small>by Mary - An overview of emerging technology trends</small>
-        <a href="#" class="float-end text-decoration-none">Read More</a>
-      </li>
-      <li class="list-group-item">
-        <strong>How to Code in Python</strong><br>
-        <small>by Ali - A beginner’s guide to programming with Python</small>
-        <a href="#" class="float-end text-decoration-none">Read More</a>
-      </li>
-    </ul>
+    <div class="card shadow-sm rounded-3 mb-4">
+        <div class="card-body table-responsive">
+            <table class="table table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col">Order ID</th>
+                        <th scope="col">Total Price</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                    <tr>
+                        <td>#01{{ order.id }}92</td>
+                        <td>₦{{ order.total_price }}</td>
+                        <td>
+                            {% if order.status == "delivered" %}
+                                <span class="badge bg-success">Delivered</span>
+                            
+                            {% else %}
+                                <span class="badge bg-danger">{{ order.status }}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="3" class="text-center text-muted">No orders found</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="card-footer text-end bg-white">
+                    <a href="{% url 'order_list' %}" class="btn btn-sm btn-primary">View All</a>
+                </div>
+        </div>
+    </div>
+
+    <!-- Water Section -->
+    <h4 class="mb-3">Available Water</h4>
+    <div class="row g-3">
+    {% for water in product %}
+    <div class="col-12 col-sm-6 col-lg-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">{{ water.pname }}</h5>
+                <h6 class="text-success">₦{{ water.price }}</h6>
+                <p class="card-text">{{ water.pdesc|truncatechars:50 }}</p>
+            </div>
+            <div class="card-footer bg-white text-end">
+                <a href="{{ water.get_absolute_url }}" class="btn btn-sm btn-primary">Read More</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
   </div>
 {% elif request.user.role == 'staff' %}
 <br>

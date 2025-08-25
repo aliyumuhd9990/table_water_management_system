@@ -35,8 +35,8 @@
       </a>
       <ul class="dropdown-menu dropdown-menu-end bg-dark">
         <li><a class="dropdown-item text-white" href="{% url 'account' %}">Profile</a></li>
-        <li><a class="dropdown-item text-white position-relative" href="#">Notifications<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-    0
+        <li><a class="dropdown-item text-white position-relative" href="{% url 'notifications:list' %}">Notifications<span class="position-absolute top-50 start-100 translate-middle badge rounded-pill bg-danger">
+    {{ notification_count }}
     <span class="visually-hidden">unread messages</span></a></li>
         <div class="dropdown-divider"></div>
         <li><a class="dropdown-item text-white" href="{% url 'logout' %}">Logout</a></li>
