@@ -6,13 +6,21 @@ from order.models import *
 
 app_name = 'core_app'
 # Create your views here.
+
 def IndexView(request):
-    orders = Order.objects.filter(
-        user=request.user, status__in=["cancelled", "delivered"]
-    ).order_by('-created_at')[:5]
+    # Always fetch products
     product = Product.objects.all()[:3]
+
+    # Only fetch orders if the user is logged in
+    if request.user.is_authenticated:
+        orders = Order.objects.filter(
+            user=request.user, status__in=["cancelled", "delivered"]
+        ).order_by('-created_at')[:5]
+    else:
+        orders = []  # anonymous visitors
+
     context = {
-        'product':product,
-        'orders':orders,
+        'product': product,
+        'orders': orders,
     }
     return render(request, 'core_app/index.html', context)

@@ -91,9 +91,9 @@
     {{ cart_count }}
     <span class="visually-hidden">unread messages</span>
 </a>
-              <a class="dropdown-item" href="#">Order List</a>
+              <a class="dropdown-item" href="{% url 'order_list' %}">Order List</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Track Order</a>
+            <a class="dropdown-item" href="{% url 'pending_orders' %}">Track Order</a>
           </div>
         </li>
       </ul>

@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'order.apps.OrderConfig',
     'payment.apps.PaymentConfig',
     'notifications.apps.NotificationsConfig',
+    'reports.apps.ReportsConfig',
     
     #third party apps
     'widget_tweaks',

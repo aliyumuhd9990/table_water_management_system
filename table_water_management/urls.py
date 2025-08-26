@@ -12,6 +12,8 @@ urlpatterns = [
     path('payment/', include('payment.urls', namespace='payment')),
     path('notifications/', include('notifications.urls', namespace='notifications')),
     path('orders/', include('order.urls')),
+    path("reports/", include("reports.urls", namespace='reports')),
+
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,

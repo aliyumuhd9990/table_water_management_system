@@ -69,26 +69,6 @@ def CreateOrderView(request):
     }
     return render(request, 'order/checkout.html', context)
 
-#checkout views
-# @login_required(login_url='login')
-# def CheckoutView(request):
-#     cart_items = CartItem.objects.filter(user=request.user, is_active=True)  # all items for this user
-    
-#     total = 0
-#     quantity = 0
-
-#     for item in cart_items:
-#         total += (item.product.price * item.quantity)
-#         quantity += item.quantity 
-
-#     context = {
-#         'header_name': 'Checkout Page',
-#         'cart_items': cart_items,
-#         'total': total,
-#         'quantity': quantity,
-#     }
-#     return render(request, 'cart/checkout.html', context)
-
 @login_required(login_url='login')
 def OrderSuccessView(request, order_id):
     order = Order.objects.get(id=order_id, user=request.user)
