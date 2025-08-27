@@ -53,8 +53,8 @@
       </a>
       <ul class="dropdown-menu dropdown-menu-end bg-dark">
         <li><a class="dropdown-item text-white" href="{% url 'account' %}">Profile</a></li>
-    <li class="dropdown-item text-white"><a href="#" class="nav-link">Reports</a></li>
-        <li class="dropdown-item text-white"><a href="#" class="nav-link">Deliveries</a></li>
+    <li class="dropdown-item text-white"><a href="{% url 'reports:my_reports' %}" class="nav-link">Reports</a></li>
+        <li class="dropdown-item text-white"><a href="{% url 'driver_orders' %}" class="nav-link">Deliveries</a></li>
         <li class="dropdown-item text-white"><a href="#" class="nav-link position-relative">Orders<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
     0
     <span class="visually-hidden">unread messages</span></a></li>

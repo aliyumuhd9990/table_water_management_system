@@ -86,6 +86,9 @@ TEMPLATES = [
                 
                 #custom notification processor
                 'notifications.context_processors.notification_count',
+                
+                 # ✅ add custom context processor
+                "reports.context_processors.report_counters",
 
             ],
         },

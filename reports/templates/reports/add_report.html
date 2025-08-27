@@ -1,11 +1,88 @@
-{% extends "base.html" %}
-{% block content %}
-<div class="container mt-4">
-    <h2>Add New Report</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Submit Report</button>
-    </form>
+
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="utf-8">
+    <title>
+    {% block title %}
+        
+    {% endblock title %}
+        </title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">   
+    
+</head>
+  <body>
+      <!-- Preloader -->
+<div id="preloader" class="position-fixed top-0 start-0 w-100 h-100 bg-white d-flex justify-content-center align-items-center" style="z-index: 1050;">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
 </div>
-{% endblock %}
+    <main>
+          <section class="sign-in-form pt-5 pb-5">
+            <div class="container">
+              
+              <div class="col-lg-5 col-12 mt-5  mx-auto">
+                {% include 'components/message.html' %}
+                <div class="card border-0">
+                  <div class="card-header bg-secondary text-center p-4">
+                            <h1 class="m-0 text-dark">Add New Report</h1>
+                        </div>
+                        <div class="card-body rounded-bottom p-3 bg-primary" >
+                            <form method="post" >
+                              {% csrf_token %}
+                              <div>
+                                                                <div class="form-floating mb-3">
+                                  <input type="text" name="title" id="title" class="form-control text-capitalize" placeholder="Your name" required="required" />
+                                  <label for="title">Report Title</label>
+                                </div>
+                                <div class="mb-3">
+      <label for="report_type" class="form-label mb-3"><b>Report Type</b></label>
+      <select name="report_type" id="report_type" class="form-select" >
+                        <option value="daily">Daily Report</option>
+                <option value="weekly">Weekly Report</option>
+                <option value="monthly">Monthly Report</option>ion>
+      </select>
+    </div>  
+
+  <div class="mb-3">
+            <label for="description" class="form-label"><b>Report Details</b></label>
+            <textarea name="description" id="description" rows="4" cols="30" class="form-control" required></textarea>
+        </div>
+        <div class="d-grid gap-2">
+                                  <button class="btn btn-lg btn-dark" type="submit">Submit Report</button>
+                                </div>
+</form><br>
+                       
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+          </section>
+        </main>
+      </div>
+ <!-- JavaScript: force preloader for 3 seconds -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    setTimeout(function () {
+      const preloader = document.getElementById("preloader");
+      if (preloader) {
+        preloader.remove(); // Removes the preloader after 3s
+      }
+    }, 2000); // 2000 milliseconds = 2 seconds
+  });
+</script>
+        <script src="{% static 'js/bootstrap.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -135,11 +135,15 @@
             <div class="card shadow-sm p-3">
                 <h5>Reports</h5>
                 <ul class="list-group">
-                    <li class="list-group-item">Daily Sales <span class="badge bg-success float-end">₦{{ report.daily_sales }}</span></li>
-                    <li class="list-group-item">Weekly Sales <span class="badge bg-info float-end">₦{{ report.weekly_sales }}</span></li>
-                    <li class="list-group-item">Monthly Sales <span class="badge bg-warning float-end">₦{{ report.monthly_sales }}</span></li>
+                    <li class="list-group-item">Daily Reports <span class="badge bg-success float-end">{{ report_daily_count }}</span></li>
+                    <li class="list-group-item">Weekly Reports <span class="badge bg-info float-end">{{ report_weekly_count }}</span></li>
+                    <li class="list-group-item">Monthly Reports <span class="badge bg-warning float-end">{{ report_monthly_count }}</span></li>
                 </ul>
+                            <div class="card-footer bg-white text-end">
+                <a href="{% url 'reports:my_reports' %}" class="btn btn-sm btn-primary">View Reports</a>
             </div>
+            </div>
+            
         </div>
     </div>
 </div>

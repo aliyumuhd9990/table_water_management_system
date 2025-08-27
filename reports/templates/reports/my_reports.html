@@ -1,11 +1,32 @@
-{% extends "base.html" %}
-{% block content %}
-<div class="container mt-4">
-    <h2>My Reports</h2>
-    <a href="{% url 'reports:add_report' %}" class="btn btn-success mb-3">+ Add New Report</a>
+{% load static %}
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>
+        {% block title %}
+            report_lists
+        {% endblock title %}
+        </title>
+        <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    </head>
 
+    <body>
+<!-- Preloader -->
+<div id="preloader" class="position-fixed top-0 start-0 w-100 h-100 bg-white d-flex justify-content-center align-items-center" style="z-index: 1050;">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+
+{% include 'header.html' %}
+<div class="container mt-4">
+    {% include 'components/message.html' %}
+    <div class="table-responsive" style="max-height: 500px; overflow-y: auto;">
     <table class="table table-bordered table-striped">
-        <thead>
+        <thead class="table-primary">
             <tr>
                 <th>Date</th>
                 <th>Report Type</th>
@@ -30,5 +51,24 @@
         {% endfor %}
         </tbody>
     </table>
+    </div>
 </div>
-{% endblock %}
+<div class="text-center">
+    <a href="{% url 'reports:add_report' %}" class="btn btn-success mb-3">+ Add New Report</a>
+</div>
+{% include 'footer.html' %}
+</div>
+    <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    setTimeout(function () {
+      const preloader = document.getElementById("preloader");
+      if (preloader) {
+        preloader.remove(); // Removes the preloader after 3s
+      }
+    }, 2000); // 2000 milliseconds = 2 seconds
+  });
+</script>
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    </body>
+</html>

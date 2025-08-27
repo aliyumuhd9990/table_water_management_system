@@ -21,3 +21,9 @@ class ProfileAdmin(admin.ModelAdmin):
     list_display = [
         'user', 'profile_img', 'contact'
     ]
+
+@admin.register(StaffGroup)
+class StaffGroupAdmin(admin.ModelAdmin):
+    list_display = [
+        'name',
+    ]

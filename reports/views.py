@@ -1,32 +1,39 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import StaffReport
-from .forms import StaffReportForm
+from django.contrib import messages
 
 @login_required
 def staff_reports(request):
     if request.user.role != "staff":
-        return redirect("home")  # only staff can write reports
+        return redirect("index")  # only staff can see this
 
     reports = StaffReport.objects.filter(staff=request.user)
-
-    return render(request, "reports/my_reports.html", {"reports": reports})
+    context = {
+        "header_name": 'My Reports',
+        "reports": reports,
+    }
+    return render(request, "reports/my_reports.html", context)
 
 
 @login_required
 def add_report(request):
     if request.user.role != "staff":
-        return redirect("index")
+        return redirect("home")
 
     if request.method == "POST":
-        form = StaffReportForm(request.POST)
-        if form.is_valid():
-            report = form.save(commit=False)
-            report.staff = request.user
-            report.group = request.user.staff_groups.first()  # assign staff's first group
-            report.save()
-            return redirect("reports:my_reports")
-    else:
-        form = StaffReportForm()
+        report_type = request.POST.get("report_type")
+        title = request.POST.get("title")
+        description = request.POST.get("description")
 
-    return render(request, "reports/add_report.html", {"form": form})
+        StaffReport.objects.create(
+            staff=request.user,
+            group=request.user.staff_groups.first(),  # assign staff’s first group
+            report_type=report_type,
+            title=title,
+            description=description,
+        )
+        messages.success(request, 'Report Added Successfully!!')
+        return redirect("reports:my_reports")
+
+    return render(request, "reports/add_report.html")

@@ -1,16 +1,20 @@
 from django.db import models
 from django.conf import settings
 from product.models import Product
+from accounts.models import *
 
 class Order(models.Model):
     STATUS_CHOICES = (
         ('pending', 'Pending'),
-        ('processing', 'Processing'),
+        ('assigned', 'Assigned to Driver'),
+        ('delivering', 'Out for Delivery'),
         ('delivered', 'Delivered'),
         ('cancelled', 'Cancelled'),
     )
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    driver = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, blank=True, related_name="deliveries", limit_choices_to={'role': 'staff'})
+
     full_name = models.CharField(max_length=100)
     email = models.EmailField()
     address = models.TextField()

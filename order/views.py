@@ -7,6 +7,7 @@ from django.contrib import messages
 from django.http import HttpResponse
 from cart.views import _CartId
 
+from .utils import assign_driver_to_order
 #for generating pdf
 from reportlab.lib.pagesizes import A4
 from reportlab.pdfgen import canvas
@@ -57,6 +58,15 @@ def CreateOrderView(request):
                 price=item.product.price
             )
             item.delete()  # clear cart after placing order
+            
+         # auto-assign driver
+        driver = assign_driver_to_order(order)
+
+        if driver:
+            print(f"Order assigned to driver: {driver.full_name}")
+        else:
+            print("No driver available at the moment.")
+
 
         return redirect('payment:initialize_payment', order_id=order.id)
 
@@ -183,3 +193,26 @@ def InvoiceView(request, invoice_id):
     # Build PDF
     doc.build(elements)
     return response
+
+@login_required
+def driver_orders(request):
+    if request.user.role == "staff" and request.user.staff_groups.filter(name="A").exists():
+        orders = Order.objects.filter(driver=request.user).exclude(status="delivered")
+        
+        context = {
+            'header_name': '🚚 My Assigned Orders',
+            "orders": orders,
+        }
+        return render(request, "order/driver_orders.html", context)
+    return redirect("index")
+
+@login_required
+def update_status(request, order_id):
+    order = get_object_or_404(Order, id=order_id, driver=request.user)
+
+    if request.method == "POST":
+        status = request.POST.get("status")
+        if status in ["delivering", "delivered"]:
+            order.status = status
+            order.save()
+    return redirect("driver_orders")
