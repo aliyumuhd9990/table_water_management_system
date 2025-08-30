@@ -27,3 +27,4 @@ class StaffGroupAdmin(admin.ModelAdmin):
     list_display = [
         'name',
     ]
+

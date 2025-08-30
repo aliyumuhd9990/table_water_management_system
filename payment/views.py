@@ -12,7 +12,7 @@ from django.contrib.auth.decorators import login_required
 # from django.template.loader import render_to_string
 # from weasyprint import HTML
 # from django.http import HttpResponse
-
+from django.contrib import messages
 # Crimport braintree
 from django.shortcuts import render, redirect, get_object_or_404
 from django.conf import settings
@@ -82,6 +82,15 @@ def verify_payment(request):
         order = payment.order
         order.paid = True
         order.save()
+        
+          # ✅ assign driver now that it’s paid
+        driver = assign_driver_to_order(order)
+
+        if driver:
+            messages.success(request, f"Order paid and assigned to driver {driver.full_name}.")
+        else:
+            messages.warning(request, "Order paid but no driver available right now.")
+
 
         return redirect('payment:done', order_id=order.id)
     return redirect('payment:canceled')
@@ -100,3 +109,12 @@ def payment_canceled(request):
     # return redirect(reverse('products:invoice_detail', ))
     return render(request, 'payment/canceled.html')
 
+def assign_driver_to_order(order):
+    # find driver for order LGA
+    driver_route = DriverRoute.objects.filter(lga=order.lga).first()
+    if driver_route:
+        order.driver = driver_route.driver
+        order.status = "assigned"
+        order.save()
+        return driver_route.driver
+    return None

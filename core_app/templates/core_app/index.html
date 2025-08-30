@@ -98,25 +98,73 @@
 <div class="container mt-4">
 
     <h2 class="mb-4">Staff Dashboard</h2>
-    
+    {% if groups %}
+    {% for g in groups %}
+        {% if g.name == "A" %}
+            <div class="alert alert-primary">Welcome to <b>Group A</b> 🚚 (Delivery team)</div>
+        {% elif g.name == "B" %}
+            <div class="alert alert-success">You are in <b>Group B</b> (Loading Water)</div>
+        {% elif g.name == "C" %}
+            <div class="alert alert-warning">You are in <b>Group C</b> (Machine Assistant)</div>
+        {% elif g.name == "D" %}
+            <div class="alert alert-info">You are in <b>Group D</b> (Other Staff)</div>
+        {% endif %}
+    {% endfor %}
+{% else %}
+    <div class="alert alert-secondary">You don’t belong to any staff group yet.</div>
+{% endif %}
+
+{% for g in groups %}
+{% if g.name == "A" %}
     <div class="row text-center">
         <div class="col-md-3">
             <div class="card shadow-sm p-3">
                 <h5>Total Deliveries</h5>
-                <h2>{{ report.total_deliveries }}</h2>
+                <h2>{{ total_orders_count }}</h2>
                 <small>This month</small>
             </div>
         </div>
         <div class="col-md-3">
             <div class="card shadow-sm p-3">
                 <h5>Pending Orders</h5>
-                <h2>{{ report.pending_orders }}</h2>
+                <h2>{{ assigned_orders_count }}</h2>
                 <small>Awaiting delivery</small>
             </div>
         </div>
         <div class="col-md-3">
             <div class="card shadow-sm p-3">
                 <h5>Completed Orders</h5>
+                <h2>{{ delivered_today }}</h2>
+                <small>Delivered successfully</small>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-sm p-3">
+                <h5>Leave</h5>
+                <h2>15</h2>
+                <small>Days for Leave</small>
+            </div>
+        </div>
+    </div>
+  {% else %}
+  <div class="row text-center">
+        <div class="col-md-3">
+            <div class="card shadow-sm p-3">
+                <h5>Total Tasks</h5>
+                <h2>{{ report.total_deliveries }}</h2>
+                <small>This month</small>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-sm p-3">
+                <h5>Pending Tasks</h5>
+                <h2>{{ report.pending_orders }}</h2>
+                <small>Awaiting delivery</small>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-sm p-3">
+                <h5>Completed Tasks</h5>
                 <h2>{{ report.completed_orders }}</h2>
                 <small>Delivered successfully</small>
             </div>
@@ -129,8 +177,30 @@
             </div>
         </div>
     </div>
-
+  {% endif %}
+{% endfor %}
+{% for g in groups %}
+{% if g.name == "A" %}
     <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card shadow-sm p-3">
+                <h5>Reports</h5>
+                <ul class="list-group">
+                    <li class="list-group-item">Daily Delivery <span class="badge bg-success float-end">{{ delivered_today }}</span></li>
+                    <li class="list-group-item">Monthly Delivery <span class="badge bg-info float-end">{{ delivered_this_month }}</span></li>
+                    <li class="list-group-item">Yearly Delivery <span class="badge bg-warning float-end">{{ delivered_orders_count }}</span></li>
+                </ul>
+                            <div class="card-footer bg-white text-end">
+                <a href="{% url 'reports:my_reports' %}" class="btn btn-sm btn-primary">View Reports</a>
+            </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+{% else %}
+<div class="row mt-4">
         <div class="col-md-6">
             <div class="card shadow-sm p-3">
                 <h5>Reports</h5>
@@ -147,7 +217,8 @@
         </div>
     </div>
 </div>
-
+{% endif %}
+{% endfor %}
 {% else %}
 
 <div class="container mt-5 mb-5 p-3" id="home">

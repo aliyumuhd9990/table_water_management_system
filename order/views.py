@@ -22,7 +22,7 @@ def CreateOrderView(request):
     user = request.user
     cart_items = CartItem.objects.filter(user=request.user, is_active=True)
     if not cart_items.exists():
-        return redirect('cart')  # if cart is empty, go back
+        return redirect('cart')
 
     total = sum(item.product.price * item.quantity for item in cart_items)
 
@@ -31,25 +31,31 @@ def CreateOrderView(request):
         email = request.POST['email']
         address = request.POST['address']
         address2 = request.POST['address2']
+        lga = request.POST.get("state")  # will match choices now
         phone = request.POST['phone']
 
-        
         if phone == "080xxxxxx":
             messages.error(request, 'Update Your Contact')
             return redirect(reverse('create_order'))
-        else:
-            # create order
-            order = Order.objects.create(
-                user=request.user,
-                full_name=full_name,
-                email=email,
-                address=address,
-                address2=address2,
-                phone=phone,
-                total_price=total
-            )
 
-        # create order items
+        # ✅ Find driver for selected LGA
+        driver_route = DriverRoute.objects.filter(lga=lga).first()
+        driver = driver_route.driver if driver_route else None
+
+        # ✅ Create order
+        order = Order.objects.create(
+            user=user,
+            full_name=full_name,
+            email=email,
+            address=address,
+            address2=address2,
+            phone=phone,
+            total_price=total,
+            lga=lga,
+            status="pending"  # only pending until paid
+        )
+
+        # ✅ Create order items
         for item in cart_items:
             OrderItem.objects.create(
                 order=order,
@@ -57,18 +63,10 @@ def CreateOrderView(request):
                 quantity=item.quantity,
                 price=item.product.price
             )
-            item.delete()  # clear cart after placing order
-            
-         # auto-assign driver
-        driver = assign_driver_to_order(order)
-
-        if driver:
-            print(f"Order assigned to driver: {driver.full_name}")
-        else:
-            print("No driver available at the moment.")
-
+            item.delete()
 
         return redirect('payment:initialize_payment', order_id=order.id)
+
 
     context = {
         'header_name': 'Create Order Page',
@@ -106,7 +104,7 @@ def OrderListView(request):
 @login_required(login_url='login')
 def PendingOrdersView(request):
     orders = Order.objects.filter(
-        user=request.user, status__in=["pending", "processing"]
+        user=request.user, status__in=["pending", "assigned"]
     ).order_by('-created_at')
     
     context = {
@@ -196,12 +194,20 @@ def InvoiceView(request, invoice_id):
 
 @login_required
 def driver_orders(request):
+    driver = request.user  # assuming driver is logged in
+    assigned_orders = Order.objects.filter(driver=driver, status="assigned").count()
+    delivering_orders = Order.objects.filter(driver=driver, status="delivering").count()
+    delivered_orders = Order.objects.filter(driver=driver, status="delivered").count()
+    
     if request.user.role == "staff" and request.user.staff_groups.filter(name="A").exists():
         orders = Order.objects.filter(driver=request.user).exclude(status="delivered")
         
         context = {
             'header_name': '🚚 My Assigned Orders',
             "orders": orders,
+            "assigned_orders": assigned_orders,
+            "delivering_orders": delivering_orders,
+            "delivered_orders": delivered_orders,
         }
         return render(request, "order/driver_orders.html", context)
     return redirect("index")

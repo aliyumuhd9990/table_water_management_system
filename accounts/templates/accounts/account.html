@@ -52,6 +52,24 @@
         <li class="list-group-item"><b>Name:</b> {{user.full_name}}</li>
         <li class="list-group-item"><b>Email:</b> {{user.email}}</li>
         <li class="list-group-item"><b>Contact:</b> {{profile.contact}}</li>
+     
+        {% for g in groups %}
+        
+        <li class="list-group-item"><b>Group:</b>
+        {% if g.name == "A" %}
+          🚚 (Delivery team)
+        {% elif g.name == "B" %}
+        Loading water
+        {% elif g.name == "C" %}
+        Machine Assistant
+        {% else %}
+        Other Staffs
+        {% endif %}
+          </li>
+        
+        {% endfor %}
+
+          
         <br>
         <a
         href="{% url 'edit-profile' %}"

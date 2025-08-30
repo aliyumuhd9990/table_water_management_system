@@ -84,6 +84,9 @@ TEMPLATES = [
                 # custom order processor
                 'order.context_processors.pending_orders_count',
                 
+                  # ✅ add custom
+                'order.context_processors.driver_delivery_counts',
+                
                 #custom notification processor
                 'notifications.context_processors.notification_count',
                 

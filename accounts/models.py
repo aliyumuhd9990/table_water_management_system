@@ -3,7 +3,6 @@ from django.db import models
 from .managers import CustomUserManager
 from django.urls import reverse
 
-
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     ROLE_CHOICES = (
         ('customer', 'Customer'),
@@ -50,3 +49,5 @@ class StaffGroup(models.Model):
 
     def __str__(self):
         return f"Group {self.name}"
+    
+

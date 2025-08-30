@@ -10,6 +10,7 @@ app_name = 'core_app'
 def IndexView(request):
     # Always fetch products
     product = Product.objects.all()[:3]
+    groups = request.user.staff_groups.all() if request.user.is_authenticated else None
 
     # Only fetch orders if the user is logged in
     if request.user.is_authenticated:
@@ -22,5 +23,6 @@ def IndexView(request):
     context = {
         'product': product,
         'orders': orders,
+        "groups": groups,
     }
     return render(request, 'core_app/index.html', context)

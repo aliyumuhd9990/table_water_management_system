@@ -54,14 +54,19 @@
       <ul class="dropdown-menu dropdown-menu-end bg-dark">
         <li><a class="dropdown-item text-white" href="{% url 'account' %}">Profile</a></li>
     <li class="dropdown-item text-white"><a href="{% url 'reports:my_reports' %}" class="nav-link">Reports</a></li>
-        <li class="dropdown-item text-white"><a href="{% url 'driver_orders' %}" class="nav-link">Deliveries</a></li>
-        <li class="dropdown-item text-white"><a href="#" class="nav-link position-relative">Orders<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-    0
-    <span class="visually-hidden">unread messages</span></a></li>
-        <li class="dropdown-item text-white"><a href="#" class="nav-link">Inventory</a></li>
-        <li class="dropdown-item text-white"><a href="#" class="nav-link position-relative">Tasks<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-    0
-    <span class="visually-hidden">unread messages</span></a></li>
+    {% for g in groups %}
+    {% if g.name == "A"  %}
+      
+    
+    <li class="dropdown-item text-white"><a href="{% url 'driver_orders' %}" class="nav-link position-relative">Deliveries<span class="position-absolute top-50 start-100 translate-middle badge rounded-pill bg-danger">
+      {{ assigned_orders_count }}
+      <span class="visually-hidden">unread messages</span></a></li>
+      {% else %}
+      <li class="dropdown-item text-white"><a href="#" class="nav-link position-relative">Tasks<span class="position-absolute top-50 start-100 translate-middle badge rounded-pill bg-danger">
+        0
+        <span class="visually-hidden">unread messages</span></a></li>
+        {% endif %}
+        {% endfor %}
         <li class="dropdown-item text-white"><a href="#" class="nav-link">Settings</a></li>
         <div class="dropdown-divider"></div>
         <li><a class="dropdown-item text-white" href="{% url 'logout' %}">Logout</a></li>

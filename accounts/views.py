@@ -121,10 +121,12 @@ def LoginView(request):
 def AccountView(request):
      user = request.user
      profile = Profile.objects.get(user=user)
+     groups = request.user.staff_groups.all() if request.user.is_authenticated else None
 
      context = {
           'user' : user,
           'profile': profile,
+          'groups': groups,
      }
      return render(request, 'accounts/account.html', context)
 

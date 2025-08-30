@@ -14,3 +14,5 @@ class OrderAdmin(admin.ModelAdmin):
 
     list_filter = ['created_at', 'paid']
     inlines = [OrderItemInLine]
+    
+admin.site.register(DriverRoute)

@@ -37,10 +37,10 @@
             <tr>
                 <td>#01{{ order.id }}92</td>
                 
-                    {% if order.status == 'pending' %}
+      {% if order.status == 'pending' %}
       <td><span class="badge bg-warning">{{ order.status }}</span></td>
-      {% elif order.status == 'processing' %}
-      <td><span class="badge bg-info">{{ order.status }}</span></td>
+      {% elif order.status == 'assigned' %}
+      <td><span class="badge bg-info">Processing</span></td>
       
       {% else %}
       <td><span class="badge bg-danger">{{ order.status }}</span></td>

@@ -1,19 +1,26 @@
 from django.db import models
 from django.conf import settings
 from product.models import Product
-from accounts.models import *
+from accounts.models import CustomUser
 
 class Order(models.Model):
     STATUS_CHOICES = (
         ('pending', 'Pending'),
-        ('assigned', 'Assigned to Driver'),
+        ('assigned', 'Processing'),
         ('delivering', 'Out for Delivery'),
         ('delivered', 'Delivered'),
         ('cancelled', 'Cancelled'),
     )
+    LGA_CHOICES = (
+        ('tudun', 'Tudun Wada'),
+        ('kumbotso', 'Kumbotso'),
+        ('dambatta', 'Danbatta'),
+        ('kiru', 'Kiru'),
+    )
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     driver = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, blank=True, related_name="deliveries", limit_choices_to={'role': 'staff'})
+    lga = models.CharField(max_length=50,choices=LGA_CHOICES, default='kumbotso')  # selected during checkout
 
     full_name = models.CharField(max_length=100)
     email = models.EmailField()
@@ -43,3 +50,16 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return f"{self.quantity} x {self.product.pname}"
+    
+    
+class DriverRoute(models.Model):
+    lga = models.CharField(max_length=50, choices=Order.LGA_CHOICES)
+    driver = models.ForeignKey(
+        CustomUser, 
+        on_delete=models.CASCADE, 
+        limit_choices_to={'role': 'staff'},
+        related_name="routes"
+    )
+
+    def __str__(self):
+        return f"{self.driver.full_name} - {self.get_lga_display()}"
